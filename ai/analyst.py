@@ -29,7 +29,7 @@ RESPONSE_SCHEMA = {
     "trade_pattern_note": "observation from recent trades or none",
 }
 
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 1000
 
 FALLBACK = {
