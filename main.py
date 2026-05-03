@@ -32,7 +32,7 @@ def _loop_iteration(iteration: int) -> None:
     log.info("1H bars: %d | 5m bars: %d", len(df_1h), len(df_5m))
 
     # ── Fetch recent trades for loss-streak check
-    recent_trades = fetch_recent_trades(cfg.NOTION_TOKEN, cfg.NOTION_DATABASE_ID, limit=5)
+    recent_trades = fetch_recent_trades(cfg.NOTION_TOKEN, cfg.NOTION_DATABASE_ID)
 
     # ── Run signal filter
     result = run_filter(df_1h, df_5m, cfg.ACCOUNT_BALANCE, cfg.RISK_PERCENT, recent_trades)

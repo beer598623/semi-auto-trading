@@ -171,11 +171,16 @@ def run_filter(
 
     session = _current_session(now)
 
-    # ── Loss streak check
+    # ── Loss streak check (today UTC only — resets each new trading day)
     if recent_trades:
-        last = recent_trades[-cfg.MAX_LOSS_STREAK:]
+        today_prefix = now.date().isoformat()   # e.g. "2026-05-05"
+        todays = [
+            t for t in recent_trades
+            if str(t.get("timestamp", "")).startswith(today_prefix)
+        ]
+        last = todays[-cfg.MAX_LOSS_STREAK:]
         if len(last) == cfg.MAX_LOSS_STREAK and all(t.get("result") == "LOSS" for t in last):
-            return NoSignal(reason=f"Loss streak >= {cfg.MAX_LOSS_STREAK}")
+            return NoSignal(reason=f"Loss streak >= {cfg.MAX_LOSS_STREAK} today (auto-resets tomorrow)")
 
     # ── 1H indicators
     ema21  = ema(df_1h["close"], cfg.EMA_FAST)

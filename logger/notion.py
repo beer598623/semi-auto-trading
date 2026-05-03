@@ -107,7 +107,7 @@ def log_signal(
 def fetch_recent_trades(
     notion_token: str,
     database_id: str,
-    limit: int = 5,
+    limit: int = 20,
 ) -> list[dict]:
     """Fetch last N completed trades from Notion (those with Exit Price set)."""
     url = f"https://api.notion.com/v1/databases/{database_id}/query"
